@@ -18,7 +18,7 @@ public class JHCharacterController : MonoBehaviour
 
     private void HandleAttackDelay()
     {
-        if(_timeSinceLastAttack <= 0.2f)
+        if(_timeSinceLastAttack <= 0.2f) // TODO - 폭탄 하나만 소환 가능하게 수정해야함
         {
             _timeSinceLastAttack += Time.deltaTime;
         }

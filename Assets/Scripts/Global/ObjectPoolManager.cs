@@ -1,14 +1,14 @@
 using System.Collections;
 using UnityEngine;
 
-public class ObjectPoolManager : CustomSingleTon<ObjectPoolManager>
+public enum ObjectPoolType
 {
-    public enum ObjectPoolType
-    {
-        Bomb,
-        Enemy
-    }
+    Bomb,
+    Enemy
+}
 
+public class ObjectPoolManager : CustomSingleTon<ObjectPoolManager>
+{ 
     [SerializeField] private GameObject[] _poolObject;
 
     private Queue[] _poolingQueue;
@@ -24,9 +24,14 @@ public class ObjectPoolManager : CustomSingleTon<ObjectPoolManager>
         
         for (int i = 0; i < _poolObject.Length; i++)
         {
+            _poolingQueue[i] = new Queue();
+
             for (int j = 0; j< count; j++)
-            {
-                _poolingQueue[i].Enqueue(_poolObject[i]);
+            {                
+                GameObject obj = Instantiate(_poolObject[i]);
+                obj.SetActive(false);
+                obj.transform.parent = this.transform;
+                _poolingQueue[i].Enqueue(obj);
             }
         }
     }
@@ -34,6 +39,15 @@ public class ObjectPoolManager : CustomSingleTon<ObjectPoolManager>
     public GameObject GetGameObject(ObjectPoolType poolType)
     {
         GameObject select = null;
+
+        if (_poolingQueue[(int)poolType].Count == 0)
+        {
+            select = Instantiate(_poolObject[(int)poolType]);
+            select.SetActive(false);
+            select.transform.parent = this.transform;
+
+            return select;
+        }
 
         select = (GameObject)_poolingQueue[(int)poolType].Dequeue();
 

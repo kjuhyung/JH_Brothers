@@ -47,7 +47,9 @@ public class PlayerController : MonoBehaviour
 
     private void CreateBomb()
     {
-      
+        GameObject bomb = ObjectPoolManager.Instance.GetGameObject(ObjectPoolType.Bomb);
+        bomb.transform.position = this.transform.position;
+        bomb.SetActive(true);
     }
 
     private void PlayerJump()
