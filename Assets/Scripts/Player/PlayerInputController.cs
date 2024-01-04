@@ -5,17 +5,23 @@ public class PlayerInputController : JHCharacterController
 {
     public void OnMove(InputValue value)
     {
+        Debug.Log("OnMove");
         Vector2 moveInput = value.Get<Vector2>().normalized;
         CallMoveEvent(moveInput);
     }
 
-    public void OnFire()
+    public void OnFire(InputValue value)
     {
-        CallFireEvent();
+        Debug.Log("OnFire");
+        IsFire = value.isPressed;
     }
 
-    public void OnJump()
+    public void OnJump(InputValue value)
     {
-        CallJumpEvent();
+        if (value.isPressed)
+        {
+            Debug.Log("OnJump");
+            CallJumpEvent();
+        }
     }
 }

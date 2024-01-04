@@ -1,8 +1,8 @@
-using System;
 using UnityEngine;
 
-public class PlayerController : JHCharacterController
+public class PlayerController : MonoBehaviour
 {
+    private JHCharacterController _controller;
     private Rigidbody2D _rigidbody;
 
     private Vector2 _movementDirection = Vector2.zero;
@@ -12,14 +12,15 @@ public class PlayerController : JHCharacterController
 
     private void Awake()
     {
+        _controller = GetComponent<JHCharacterController>();
         _rigidbody = GetComponent<Rigidbody2D>();        
     }
 
     private void Start()
     {
-        OnMoveEvent += PlayerMove;
-        OnFireEvent += PlayerFire;
-        OnJumpEvent += PlayerJump;
+        _controller.OnMoveEvent += PlayerMove;
+        _controller.OnFireEvent += PlayerFire;
+        _controller.OnJumpEvent += PlayerJump;
     }
 
     private void FixedUpdate()
@@ -41,7 +42,12 @@ public class PlayerController : JHCharacterController
 
     private void PlayerFire()
     {
+        CreateBomb();
+    }
 
+    private void CreateBomb()
+    {
+      
     }
 
     private void PlayerJump()
