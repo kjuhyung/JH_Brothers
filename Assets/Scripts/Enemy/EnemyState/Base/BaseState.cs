@@ -2,10 +2,14 @@ using UnityEngine;
 
 public abstract class BaseState : MonoBehaviour, IState
 {
+    protected EnemyController enemyController;
     protected EnemyStateMachine enemyStateMachine;
 
-    public void Init(EnemyStateMachine _enemyStateMachine)
+    protected bool Active = false;
+
+    public void Init(EnemyController _enemyController, EnemyStateMachine _enemyStateMachine)
     {
+        enemyController = _enemyController;
         enemyStateMachine = _enemyStateMachine;
     }
 
