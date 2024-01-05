@@ -6,7 +6,6 @@ public class PatrolState : BaseState
     public float moveTime = 1;
     public int nextMove = 0;
 
-    private float curTime = 0;
     private Vector2 _velocity;
 
     private void Start()
@@ -22,17 +21,20 @@ public class PatrolState : BaseState
 
             if (nextMove == 0 || curTime > moveTime)
             {
-                Exit();
+                enemyStateMachine.ChangeState(StateType.Idle);
             }
             else
             {
                 enemyController.body.velocity = new Vector2(nextMove, enemyController.body.velocity.y);
             }
+
+            enemyController.UpdateDirection();
         }
     }
 
     public override void Enter()
     {
+        Debug.Log("Enter : Patrol");
         Think();
         curTime = 0;
         Active = true;
@@ -40,11 +42,8 @@ public class PatrolState : BaseState
 
     public override void Exit()
     {
-        if (Active)
-        {
-            Active = false;
-            enemyStateMachine.ChangeState(StateType.Idle);
-        }
+        Debug.Log("Exit : Patrol");
+        Active = false;
     }
 
     void Think()

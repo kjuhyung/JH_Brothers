@@ -24,7 +24,11 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(body.velocity);
+        
+    }
+
+    public void UpdateDirection()
+    {
         if ((body.velocity.x > 0.01f && !direction) || (body.velocity.x < -0.01f && direction))
         {
             gameObject.transform.localScale = direction ? new Vector3(-1, 1, 1) : new Vector3(1, 1, 1);
@@ -38,7 +42,7 @@ public class EnemyController : MonoBehaviour
         {
             fsm.ChangeState(StateType.Attack);
         }
-        else if(collision.TryGetComponent<PlayerBomb>(out PlayerBomb PlayerBomb))
+        else if (collision.TryGetComponent<PlayerBomb>(out PlayerBomb PlayerBomb))
         {
             fsm.ChangeState(StateType.Fleeing);
         }
@@ -51,6 +55,4 @@ public class EnemyController : MonoBehaviour
             fsm.ChangeState(StateType.Idle);
         }
     }
-
-    
 }

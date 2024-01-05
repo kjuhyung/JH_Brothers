@@ -4,6 +4,7 @@ public abstract class BaseState : MonoBehaviour, IState
 {
     protected EnemyController enemyController;
     protected EnemyStateMachine enemyStateMachine;
+    protected float curTime;
 
     protected bool Active = false;
 
