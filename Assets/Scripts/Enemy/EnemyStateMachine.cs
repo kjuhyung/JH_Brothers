@@ -1,14 +1,5 @@
 using UnityEngine;
 
-enum StateType
-{
-    Idle,
-    Patrol,
-    Attack,
-    Fleeing,
-    Dead,
-}
-
 public class EnemyStateMachine : MonoBehaviour
 {
     [SerializeField] private IdleState idleState;
