@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private JHCharacterController _controller;
+    private PlayerInputController _controller;
     private Rigidbody2D _rigidbody;
+    private SpriteRenderer _spriter;
 
     private Vector2 _movementDirection = Vector2.zero;
 
@@ -12,8 +13,9 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        _controller = GetComponent<JHCharacterController>();
-        _rigidbody = GetComponent<Rigidbody2D>();        
+        _controller = GetComponent<PlayerInputController>();
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _spriter = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Start()
@@ -38,6 +40,11 @@ public class PlayerController : MonoBehaviour
         direction = direction * _movementSpeed;
 
         _rigidbody.velocity = direction;
+
+        if (_controller.moveInput.x != 0)
+        {
+            _spriter.flipX = _controller.moveInput.x < 0;
+        }
     }
 
     private void PlayerFire()
@@ -54,6 +61,6 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerJump()
     {
-
+        _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Force);
     }
 }

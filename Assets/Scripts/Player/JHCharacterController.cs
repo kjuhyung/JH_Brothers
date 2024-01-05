@@ -9,21 +9,32 @@ public class JHCharacterController : MonoBehaviour
 
     private float _timeSinceLastAttack = float.MaxValue;
 
-    protected bool IsFire { get; set; }
+    protected bool IsFiring { get; set; }
+    protected bool IsJumping { get; set; }
+    protected bool IsGround { get; set; }
 
     protected virtual void Update()
     {
-        HandleAttackDelay();
+        HandleAttack();
+        HandleJump();
     }
 
-    private void HandleAttackDelay()
+    private void HandleJump()
+    {
+        if (IsJumping && IsGround)
+        {
+            CallJumpEvent();
+        }
+    }
+
+    private void HandleAttack()
     {
         if(_timeSinceLastAttack <= 0.2f) // TODO - 폭탄 하나만 소환 가능하게 수정해야함
         {
             _timeSinceLastAttack += Time.deltaTime;
         }
 
-        if(IsFire && _timeSinceLastAttack > 0.2f)
+        if(IsFiring && _timeSinceLastAttack > 0.2f)
         {
             _timeSinceLastAttack = 0f;
             CallFireEvent();
