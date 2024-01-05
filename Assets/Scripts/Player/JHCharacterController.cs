@@ -6,12 +6,15 @@ public class JHCharacterController : MonoBehaviour
     public event Action<Vector2> OnMoveEvent;
     public event Action OnFireEvent;
     public event Action OnJumpEvent;
+    public event Action OnDownEvent;
+    public event Action OnDashEvent;
 
     private float _timeSinceLastAttack = float.MaxValue;
 
     protected bool IsFiring { get; set; }
     protected bool IsJumping { get; set; }
     protected bool IsGround { get; set; }
+    public bool IsDown { get; set; }
 
     protected virtual void Update()
     {
@@ -21,9 +24,15 @@ public class JHCharacterController : MonoBehaviour
 
     private void HandleJump()
     {
+        // TODO
         if (IsJumping && IsGround)
         {
             CallJumpEvent();
+        }
+
+        if (IsJumping && IsDown)
+        {
+            CallDashEvent();
         }
     }
 
@@ -54,6 +63,16 @@ public class JHCharacterController : MonoBehaviour
     protected void CallJumpEvent()
     {
         OnJumpEvent?.Invoke();
+    }
+
+    protected void CallDownEvent()
+    {
+        OnDownEvent?.Invoke();
+    }
+
+    protected void CallDashEvent()
+    {
+        OnDashEvent?.Invoke();
     }
 
 }
