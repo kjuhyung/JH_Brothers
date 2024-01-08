@@ -55,17 +55,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "53950600-6fce-45d3-8edc-9329f10d3c9d",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "left",
                     "id": "a30d8e13-bfbc-4c1b-bd86-2b68f648cb0f",
                     "path": "<Keyboard>/leftArrow",

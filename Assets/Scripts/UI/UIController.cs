@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class UIController : CustomSingleTon<UIController>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private UIModel _model;
+    private UIView _view;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        _model = new UIModel();
+        _view = GetComponent<UIView>();
     }
 }
