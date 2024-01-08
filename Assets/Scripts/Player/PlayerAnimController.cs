@@ -10,6 +10,7 @@ public class PlayerAnimController : MonoBehaviour
     private static readonly int Down = Animator.StringToHash("Down");
     private static readonly int Dash = Animator.StringToHash("Dash");
     private static readonly int Fire = Animator.StringToHash("Fire");
+    private static readonly int Dead = Animator.StringToHash("Dead");
 
 
     private void Awake()
@@ -51,4 +52,8 @@ public class PlayerAnimController : MonoBehaviour
         _anim.SetTrigger(Fire);
     }
 
+    private void OnDeadAnim()
+    {
+        _anim.SetTrigger(Dead);
+    }
 }
