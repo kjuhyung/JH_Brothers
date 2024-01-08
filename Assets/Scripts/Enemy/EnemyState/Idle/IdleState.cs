@@ -1,16 +1,17 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class IdleState : BaseState
 {
     public override void Enter()
     {
-        enemyStateMachine.body.velocity = Vector2.zero;
+        enemyController.body.velocity = Vector2.zero;
+        curTime = 0.0f;
+        Active = true;
     }
 
     public override void Exit()
     {
-        
+        Active = false;
     }
 
     // Start is called before the first frame update
@@ -22,6 +23,13 @@ public class IdleState : BaseState
     // Update is called once per frame
     void Update()
     {
-        
+        if(Active)
+        {
+            curTime += Time.deltaTime;
+            if(curTime > 1.0f)
+            {
+                enemyStateMachine.ChangeState(StateType.Patrol);
+            }
+        }
     }
 }

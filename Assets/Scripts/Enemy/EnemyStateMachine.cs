@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
-enum StateType
+public enum StateType
 {
     Idle,
     Patrol,
@@ -19,32 +20,46 @@ public class EnemyStateMachine : MonoBehaviour
  
     public IState CurrentState { get; protected set; }
 
-    public Rigidbody2D body;
-
-    public EnemyStateMachine(IdleState _idleState, PatrolState _patrolState, AttackState _attackState, FleeingState _fleeingState, DeadState _deadState)
+    public EnemyStateMachine(EnemyController enemyController, IdleState _idleState, PatrolState _patrolState, AttackState _attackState, FleeingState _fleeingState, DeadState _deadState)
     {
-        this.idleState = _idleState;
-        this.patrolState = _patrolState;
-        this.attackState = _attackState;
-        this.fleeingState = _fleeingState;
-        this.deadState = _deadState;
-        idleState.Init(this);
-        patrolState.Init(this);
-        attackState.Init(this);
-        fleeingState.Init(this);
-        deadState.Init(this);
-        body = GetComponent<Rigidbody2D>();
+        idleState = _idleState;
+        patrolState = _patrolState;
+        attackState = _attackState;
+        fleeingState = _fleeingState;
+        deadState = _deadState;
+        idleState.Init(enemyController, this);
+        patrolState.Init(enemyController, this);
+        attackState.Init(enemyController, this);
+        fleeingState.Init(enemyController, this);
+        deadState.Init(enemyController, this);
+
+        ChangeState(StateType.Idle);
     }
 
-    public void ChangeState(IState newState)
+    public void ChangeState(StateType newState)
     {
         CurrentState?.Exit();
-        CurrentState = newState;
+        switch(newState)
+        {
+            case StateType.Idle:
+                CurrentState = idleState;
+                break;
+            case StateType.Patrol:
+                CurrentState = patrolState;
+                break;
+            case StateType.Attack:
+                CurrentState = attackState;
+                break;
+            case StateType.Fleeing:
+                CurrentState = fleeingState;
+                break;
+            case StateType.Dead:
+                CurrentState = deadState;
+                break;
+            default:
+                CurrentState = idleState;
+                break;
+        }
         CurrentState?.Enter();
-    }
-
-    public void Move()
-    {
-        
     }
 }
