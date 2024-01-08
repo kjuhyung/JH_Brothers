@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float _movementSpeed;
     [SerializeField] private float _jumpForce;
+    [SerializeField] private float _dashForce;
 
     private void Awake()
     {
@@ -64,21 +65,18 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerJump()
     {
-        if (_controller.IsDown) return;
-
-        Debug.Log("Jump");
         _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Force);
     }
 
     private void PlayerDown()
     {
-        if (!_controller.IsDown) return;
-        Debug.Log("Down");
+        _rigidbody.velocity = Vector2.zero;
     }
 
     private void PlayerDash()
     {
-        if(!_controller.IsDown) return;
-        Debug.Log("Dash");
+        Vector2 direction = _spriter.flipX ? Vector2.left : Vector2.right;
+
+        _rigidbody.AddForce(direction * _dashForce, ForceMode2D.Force);        
     }
 }

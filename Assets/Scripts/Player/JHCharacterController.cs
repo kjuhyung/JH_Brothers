@@ -12,8 +12,9 @@ public class JHCharacterController : MonoBehaviour
     private float _timeSinceLastAttack = float.MaxValue;
 
     protected bool IsFiring { get; set; }
-    protected bool IsJumping { get; set; }
+    
     protected bool IsGround { get; set; }
+    protected bool IsJumping { get; set; }
     public bool IsDown { get; set; }
 
     protected virtual void Update()
@@ -57,11 +58,15 @@ public class JHCharacterController : MonoBehaviour
 
     protected void CallFireEvent()
     {
+        if (IsDown) return;
+
         OnFireEvent?.Invoke();
     }
 
     protected void CallJumpEvent()
     {
+        if (IsDown) return;
+
         OnJumpEvent?.Invoke();
     }
 
@@ -72,6 +77,8 @@ public class JHCharacterController : MonoBehaviour
 
     protected void CallDashEvent()
     {
+        if (!IsDown) return;
+
         OnDashEvent?.Invoke();
     }
 

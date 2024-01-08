@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerAnimController : MonoBehaviour
@@ -40,16 +39,16 @@ public class PlayerAnimController : MonoBehaviour
 
     private void OnDownAnim()
     {
-        _anim.SetTrigger(Down);
+        _anim.SetBool(Down, _controller.IsDown);
     }
     private void OnDashAnim()
     {
-        throw new NotImplementedException();
+        _anim.SetTrigger(Dash);
     }
 
     private void OnFireAnim()
     {
-        throw new NotImplementedException();
+        _anim.SetTrigger(Fire);
     }
 
 }
