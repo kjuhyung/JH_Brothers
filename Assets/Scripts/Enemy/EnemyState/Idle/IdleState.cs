@@ -4,7 +4,6 @@ public class IdleState : BaseState
 {
     public override void Enter()
     {
-        Debug.Log("Enter : Idle");
         enemyController.body.velocity = Vector2.zero;
         curTime = 0.0f;
         Active = true;
@@ -12,7 +11,6 @@ public class IdleState : BaseState
 
     public override void Exit()
     {
-        Debug.Log("Exit : Idle");
         Active = false;
     }
 

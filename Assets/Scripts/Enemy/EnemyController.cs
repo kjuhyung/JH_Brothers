@@ -50,9 +50,9 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<PlayerController>(out PlayerController playerController))
-        {
-            fsm.ChangeState(StateType.Idle);
-        }
+        //if (collision.TryGetComponent<PlayerController>(out PlayerController playerController))
+        //{
+        //    fsm.ChangeState(StateType.Idle);
+        //}
     }
 }

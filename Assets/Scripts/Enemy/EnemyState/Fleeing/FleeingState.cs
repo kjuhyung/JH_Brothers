@@ -12,7 +12,6 @@ public class FleeingState : BaseState
 
     public override void Enter()
     {
-        Debug.Log("Enter : Fleeing");
         direction = enemyController.direction;
         curTime = 0.0f;
         Active = true;
@@ -34,7 +33,6 @@ public class FleeingState : BaseState
 
     public override void Exit()
     {
-        Debug.Log("Exit : Fleeing");
         Active = false;
     }
 }

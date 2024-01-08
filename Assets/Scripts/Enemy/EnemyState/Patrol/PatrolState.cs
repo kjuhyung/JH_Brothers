@@ -34,7 +34,6 @@ public class PatrolState : BaseState
 
     public override void Enter()
     {
-        Debug.Log("Enter : Patrol");
         Think();
         curTime = 0;
         Active = true;
@@ -42,7 +41,6 @@ public class PatrolState : BaseState
 
     public override void Exit()
     {
-        Debug.Log("Exit : Patrol");
         Active = false;
     }
 

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adde23a94f8fd2d4d985a5b939c72778, type: 3}
   m_Name: EnemySO
   m_EditorClassIdentifier: 
-  <Health>k__BackingField: 0
-  <MaxHealth>k__BackingField: 0
-  <Speed>k__BackingField: 0
+  <MaxHealth>k__BackingField: 2
+  <Speed>k__BackingField: 1
+  <AttackDeley>k__BackingField:
+  - 1
+  - 3
