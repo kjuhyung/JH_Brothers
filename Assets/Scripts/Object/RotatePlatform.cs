@@ -6,7 +6,8 @@ public class RotatePlatform : MonoBehaviour
     private bool RotateDirection = true;
     private bool TopDown = true;
     private Collider2D Player;
-    private Quaternion rotationAngle;
+    private float startZRotate;
+    private float endZRotate;
     private float curTime = 0;
 
     private void Update()
@@ -14,9 +15,10 @@ public class RotatePlatform : MonoBehaviour
         if(Active)
         {
             curTime += Time.deltaTime;
-            Debug.Log(curTime);
-            gameObject.transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, rotationAngle, curTime);
-            if(curTime > 2.0f)
+            float zRotate = Mathf.Lerp(startZRotate, endZRotate, curTime);
+            gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, zRotate));
+                
+            if(curTime > 1.0f)
                 Active = false;
         }
     }
@@ -51,6 +53,8 @@ public class RotatePlatform : MonoBehaviour
     {
         if (!Active)
         {
+            Debug.Log(gameObject.transform.position.x);
+            Debug.Log(Player.gameObject.transform.position.x);
             Active = true;
             curTime = 0;
             if ((Player.gameObject.transform.position.x - gameObject.transform.position.x) > 0)
@@ -58,8 +62,8 @@ public class RotatePlatform : MonoBehaviour
             else
                 RotateDirection = false;
 
-            Vector3 rotateAngle = gameObject.transform.rotation.eulerAngles + (RotateDirection ? new Vector3(0, 0, 180) : new Vector3(0, 0, -180));
-            rotationAngle = Quaternion.Euler(rotateAngle);
+            startZRotate = gameObject.transform.rotation.eulerAngles.z;
+            endZRotate = startZRotate + (RotateDirection ? -180.0f : 180.0f);
         }
     }
 
